@@ -6,19 +6,16 @@ class GetGitHubUserUseCase {
 	
 	constructor(gitHubRepository, brokerRepository) {
 		this.gitHubRepository = gitHubRepository;
-		this.brokerRespository = brokerRepository;
+		this.brokerRepository = brokerRepository;
 	}
 	
 	execute(params, res) {
 		let login = params.login;
-		
+		let self = this;
 		this.gitHubRepository
 			.getUser(login)
 			.then(function(user){
-				brokerRepository.emitUser({
-					login: user.login,
-					id: user.id
-				});
+				self.brokerRepository.emitUser(user);
 				res.ok(user);
 			})
 			.catch(function(err){
