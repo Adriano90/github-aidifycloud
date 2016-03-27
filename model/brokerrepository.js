@@ -12,7 +12,7 @@ class Broker {
 		this.logger = logger;
 	}
 	
-	emitUser(user) {
+	saveUser(user) {
 		let action = "CREATE_USER";
 		let userValue = JSON.stringify(user);
 		let message = `${action}:${userValue}`;
@@ -20,7 +20,7 @@ class Broker {
 		this.client.publish('SERVICE:USERMANAGEMENT', message);
 	}
 
-	emitActivity(activity) {
+	saveActivity(activity) {
 		let action = "CREATE_ACTIVITY";
 		let activityValue = JSON.stringify(activity);
 		let message = `${action}:${activityValue}`;

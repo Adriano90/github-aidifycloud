@@ -26,7 +26,8 @@ class GitHubRespository {
 		return new Promise(function (resolve,reject) {
 			self.github.user.getFrom({user: login}, function(err, res) {
 				if (err) {
-					reject(err.message);
+					reject(JSON.parse(err).message);
+					return;
 				}
 				
 				resolve(self.userMapper.userFromGitHub(res));
@@ -44,6 +45,7 @@ class GitHubRespository {
 			self.github.events.getFromOrg(query, function(err, res) {
 				if (err) {
 					reject(JSON.parse(err).message);
+					return;
 				}
 				
 				let activities = res.filter((elem) => {

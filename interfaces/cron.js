@@ -6,15 +6,16 @@ const CronJob = require('cron').CronJob;
 
 class Cron {
 
-	constructor(logger, emitGitHubEvents) {
-		this.emitGitHubEvents = emitGitHubEvents;
+	constructor(logger, getActivities) {
+		this.getActivities = getActivities;
 		let self = this;
 		try {
 			new CronJob('0 0 * * * *', 
 				function() {
 					let date = new Date();
 					date.setHours(date.getHours() - 1);
-					self.emitGitHubEvents.execute(date)
+					logger.info("Executing cron process with date: " + date.toISOString());
+					self.getActivities.execute(date)
 				}, null, true, 'Europe/Madrid'
 			);
 		} catch(ex) {

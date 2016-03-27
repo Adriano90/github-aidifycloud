@@ -12,9 +12,9 @@ module.exports.activityFromGitHub = function(gitHubActivity) {
 		return gitHubActivity.payload.commits.map((elem) => {
 			return new Activity(gitHubActivity.id, "COMMIT", null, elem.author.name, gitHubActivity.repo.name);
 		});
-	} else {
-		return null;
 	}
+	
+	return null;
 }
 
 })();
