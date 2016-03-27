@@ -1,0 +1,32 @@
+{
+  "name": "github-aidifycloud",
+  "version": "0.1.0",
+  "description": "GitHub service to retrieve user and repositories information from GitHub for cloud project.",
+  "main": "app.js",
+  "engines": {
+    "node": "5.9.0"
+  },
+  "scripts": {
+    "start": "hotnode app.js",
+    "test": "./node_modules/.bin/mocha --reporter spec"
+  },
+  "keywords": [
+    "GitHub",
+    "aidifycloud",
+    "hackathon"
+  ],
+  "author": "Juan Herrador Rodríguez",
+  "license": "MIT",
+  "dependencies": {
+    "cron": "^1.1.0",
+    "github": "^0.2.4",
+    "lodash": "^4.6.1",
+    "node-env-file": "^0.1.8",
+    "redis": "^2.5.3",
+    "restify": "^4.0.4"
+  },
+  "devDependencies": {
+    "mocha": "*",
+    "should": ">= 0.0.1"
+  }
+}
