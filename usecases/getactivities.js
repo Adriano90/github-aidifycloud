@@ -4,19 +4,19 @@
 
 class GetActivitiesUseCase {
 
-	constructor(externalRepository, internalRepository) {
-		this.externalRepository = externalRepository;
-		this.internalRepository = internalRepository;
+	constructor(activityRepository) {
+		this.activityRepository = activityRepository;
 	}
 	
 	execute(date) {
 		let self = this;
-		this.externalRepository
-			.getActivities(date)
+		this.activityRepository
+			.getByDate(date)
 			.then(function(activities){
+				console.log("Num. of activities to save: %d", activities.length);
 				activities.forEach(
 					(elem) => {
-						self.internalRepository.saveActivity(elem);
+						self.activityRepository.save(elem);
 					}
 				);
 				

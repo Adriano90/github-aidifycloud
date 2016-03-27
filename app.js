@@ -6,26 +6,41 @@ const Logger = require('./interfaces/logger');
 const env = require('node-env-file');
 env(__dirname + '/.env');
 
-// Webservice bootstrap
+// Create redis client
+let redis = require("redis");
+let redisClient = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOST);
+redisClient.auth(process.env.REDIS_PASSWORD);
 
+// Create GitHub api
+const GitHubApi = require('github');
+let github = new GitHubApi({
+				version: process.env.GITHUB_VERSION,
+				debug: process.env.GITHUB_DEBUG,
+				protocol: process.env.GITHUB_PROTOCOL,
+				host: process.env.GITHUB_HOST,
+				headers: {
+					"user-agent": process.env.GITHUB_USERAGENT
+				}
+			});
+
+// Webservice bootstrap
 const Server = require('./webservice/server');
 const GetUserUseCase = require('./usecases/getuser');
-const GitHubRepository = require('./model/githubrepository');
-const Broker = require('./model/brokerrepository');
+const UserRepository = require('./model/userrepository');
 const UserMapper = require('./model/usermapper');
-const ActivityMapper = require('./model/activitymapper');
 
-let broker = new Broker(new Logger());
-let gitHubRepository = new GitHubRepository(UserMapper, ActivityMapper);
-let getUserUseCase = new GetUserUseCase(gitHubRepository, broker);
+let userRepository = new UserRepository(new Logger(), github, redisClient, UserMapper);
+let getUserUseCase = new GetUserUseCase(userRepository);
 let webservice = new Server(new Logger(), getUserUseCase);
 
 // Cron bootstrap
-
 const Cron = require('./interfaces/cron.js');
 const GetActivitiesUseCase = require('./usecases/getactivities');
+const ActivityRepository = require('./model/activityrepository');
+const ActivityMapper = require('./model/activitymapper');
+let activityRepository = new ActivityRepository(new Logger(), github, redisClient, ActivityMapper);
 
-let getActivitiesUseCase = new GetActivitiesUseCase(gitHubRepository, broker);
+let getActivitiesUseCase = new GetActivitiesUseCase(activityRepository);
 let scheduler = new Cron(new Logger(), getActivitiesUseCase);
 
 })();

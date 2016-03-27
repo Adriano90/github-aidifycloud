@@ -4,18 +4,17 @@
 
 class GetUserUseCase {
 	
-	constructor(externalUserRepository, internalUserRepository) {
-		this.externalUserRepository = externalUserRepository;
-		this.internalUserRepository = internalUserRepository;
+	constructor(userRepository) {
+		this.userRepository = userRepository;
 	}
 	
 	execute(params, res) {
 		let login = params.login;
 		let self = this;
-		this.externalUserRepository
-			.getUser(login)
+		this.userRepository
+			.get(login)
 			.then(function(user){
-				self.internalUserRepository.saveUser(user);
+				self.userRepository.save(user);
 				res.ok(user);
 			})
 			.catch(function(err){

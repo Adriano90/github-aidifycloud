@@ -4,7 +4,7 @@
 
 const User = require('./user');
 
-module.exports.userFromGitHub = function(gitHubUser) {
+module.exports.fromGitHub = function(gitHubUser) {
 
 	return new User(gitHubUser.id, gitHubUser.login);
 }

@@ -6,7 +6,7 @@ const Activity = require('./activity');
 const MASTER = "refs/heads/master";
 const PUSH_EVENT = "PushEvent";
 
-module.exports.activityFromGitHub = function(gitHubActivity) {
+module.exports.fromGitHub = function(gitHubActivity) {
 	
 	if (PUSH_EVENT == gitHubActivity.type && MASTER == gitHubActivity.payload.ref) {
 		return gitHubActivity.payload.commits.map((elem) => {
