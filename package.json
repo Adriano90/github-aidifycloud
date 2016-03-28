@@ -1,7 +1,7 @@
 {
   "name": "github-aidifycloud",
   "version": "0.1.0",
-  "description": "GitHub service to retrieve user and repositories information from GitHub for cloud project.",
+  "description": "Aidify GitHub service, retrieve user and event information from GitHub.",
   "main": "app.js",
   "engines": {
     "node": "5.9.0"
