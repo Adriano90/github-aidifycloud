@@ -15,12 +15,6 @@ class UserRepository {
 		let self = this;
 		return new Promise(function (resolve,reject) {
 			let query = {user: login};
-			
-			self.github.authenticate({
-				type: "oauth",
-				token: "69d53fc3c2e282855536beeb6733edb6e15b5bf3"
-			});
-			
 			self.github.user.getFrom(query, function(err, res) {
 				if (err) {
 					self.logger.error(err);

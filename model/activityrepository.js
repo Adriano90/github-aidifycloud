@@ -14,18 +14,11 @@ class ActivityRepository {
 	}
 	
 	getByDate(date) {
-		var self = this;
+		let self = this;
 		return new Promise(function (resolve,reject) {
-			
-			var query = {
+			let query = {
 				org: process.env.AIDIFYCLOUD_ORGANIZATION
 			};
-			
-			self.github.authenticate({
-				type: "oauth",
-				token: "69d53fc3c2e282855536beeb6733edb6e15b5bf3"
-			});
-			
 			self.github.events.getFromOrg(query, function(err, res) {
 				if (err) {
 					reject(JSON.parse(err).message);
