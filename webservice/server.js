@@ -8,7 +8,7 @@ const Response = require('./response');
 
 class Server {
 	
-	constructor(logger, getGitHubInfoUseCase) {
+	constructor(logger, getUser) {
 		let api = restify.createServer({
 			name: config.name,
 			version: config.version
@@ -22,7 +22,7 @@ class Server {
 				logger.info('request POST : /user ? ' + JSON.stringify(req.body));
 			}
 			
-			getGitHubInfoUseCase.execute(JSON.parse(req.body), new Response(res, logger));
+			getUser.execute(JSON.parse(req.body), new Response(res, logger));
 		});
 		
 		api.listen(process.env.PORT || 5001,function () {
