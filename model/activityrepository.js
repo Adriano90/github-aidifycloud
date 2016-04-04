@@ -36,11 +36,11 @@ class ActivityRepository {
 	}
 
 	save(activity) {
-		let action = "CREATE_ACTIVITY";
+		let action = "SET_POINTS";
 		let activityValue = JSON.stringify(activity);
 		let message = `${action}:${activityValue}`;
 		this.logger.info("Emit Activity: " + message);
-		this.redis.publish('SERVICE:ACTIVITYMANAGEMENT', message);
+		this.redis.publish('SERVICE:POINTSSERVICE', message);
 	}
 }
 

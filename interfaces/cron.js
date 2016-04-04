@@ -10,7 +10,7 @@ class Cron {
 		this.getActivities = getActivities;
 		let self = this;
 		try {
-			new CronJob('0 0 * * * *', 
+			new CronJob(process.env.CRON_EXPRESSION, 
 				function() {
 					let date = new Date();
 					date.setHours(date.getHours() - 1);
