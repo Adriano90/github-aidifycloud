@@ -19,24 +19,21 @@ module.exports.fromGitHub = function(gitHubActivity) {
 			return new Activity(gitHubActivity.id, "commit", "created",
 				elem.author.name, gitHubActivity.repo.name, gitHubActivity.created_at);
 		});
+		
 	} else if (ISSUES_EVENT == gitHubActivity.type) {
 		
-		if (!gitHubActivity.payload.issue.assignee) {
-			return null;
-		}
-		
 		return new Activity(gitHubActivity.id, ISSUES_EVENT.toLowerCase(),
-			gitHubActivity.payload.action, gitHubActivity.payload.issue.assignee.login,
-			gitHubActivity.repo.name, gitHubActivity.created_at);
+			gitHubActivity.payload.action, gitHubActivity.user.login,
+			gitHubActivity.repo.name, gitHubActivity.created_at,
+				gitHubActivity.payload.issue.title, gitHubActivity.payload.issue.body);
+			
 	} else if (PULL_REQUEST_EVENT == gitHubActivity.type) {
 		
-		if (!gitHubActivity.payload.pull_request.assignee) {
-			return null;
-		}
-		
 		return new Activity(gitHubActivity.id, PULL_REQUEST_EVENT.toLowerCase(),
-			gitHubActivity.payload.action, gitHubActivity.actor.login,
-			gitHubActivity.repo.name, gitHubActivity.created_at);
+			gitHubActivity.payload.action, gitHubActivity.payload.pull_request.user.login,
+			gitHubActivity.repo.name, gitHubActivity.created_at,
+				gitHubActivity.payload.pull_request.title, gitHubActivity.payload.pull_request.body);
+			
 	}
 	
 	return null;
