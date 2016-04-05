@@ -35,7 +35,7 @@ module.exports.fromGitHub = function(gitHubActivity) {
 		}
 		
 		return new Activity(gitHubActivity.id, PULL_REQUEST_EVENT.toLowerCase(),
-			gitHubActivity.payload.action, gitHubActivity.payload.pull_request.assignee.login,
+			gitHubActivity.payload.action, gitHubActivity.actor.login,
 			gitHubActivity.repo.name, gitHubActivity.created_at);
 	}
 	
