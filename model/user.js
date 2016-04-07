@@ -4,9 +4,10 @@
 
 class User {
 
-	constructor(id, login, avatar) {
+	constructor(id, login, name, avatar) {
 		this.id = id;
 		this.login = login;
+		this.name = name;
 		this.avatar = avatar;
 	}
 
