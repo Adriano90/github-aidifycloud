@@ -13,7 +13,7 @@ class UserRepository {
 
 	get(login) {
 		let self = this;
-		return new Promise(function (resolve,reject) {
+		return new Promise(function(resolve, reject) {
 			let query = {user: login};
 			self.github.user.getFrom(query, function(err, res) {
 				if (err) {

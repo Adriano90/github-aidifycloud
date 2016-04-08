@@ -34,7 +34,8 @@ module.exports.fromGitHub = function(gitHubActivity) {
 		return new Activity(gitHubActivity.id, ISSUES_EVENT.toLowerCase(),
 			gitHubActivity.payload.action, gitHubActivity.payload.issue.assignee.login,
 			gitHubActivity.repo.name, gitHubActivity.created_at, gitHubActivity.actor.login,
-			gitHubActivity.payload.issue.title, gitHubActivity.payload.issue.body);
+			gitHubActivity.payload.issue.title, gitHubActivity.payload.issue.body,
+			gitHubActivity.payload.issue.html_url);
 			
 	} else if (PULL_REQUEST_EVENT == gitHubActivity.type) {
 		
@@ -42,7 +43,8 @@ module.exports.fromGitHub = function(gitHubActivity) {
 		return new Activity(gitHubActivity.id, PULL_REQUEST_EVENT.toLowerCase(),
 			action, gitHubActivity.payload.pull_request.user.login,
 			gitHubActivity.repo.name, gitHubActivity.created_at, gitHubActivity.actor.login,
-			gitHubActivity.payload.pull_request.title, gitHubActivity.payload.pull_request.body);
+			gitHubActivity.payload.pull_request.title, gitHubActivity.payload.pull_request.body,
+			gitHubActivity.payload.pull_request.html_url);
 			
 	}
 	

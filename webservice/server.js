@@ -8,7 +8,7 @@ const Response = require('./response');
 
 class Server {
 	
-	constructor(logger, getUser) {
+	constructor(logger, getUser, updateIssue) {
 		let api = restify.createServer({
 			name: config.name,
 			version: config.version
@@ -23,6 +23,12 @@ class Server {
 			}
 			
 			getUser.execute(JSON.parse(req.body), new Response(res, logger));
+		});
+		
+		api.put('/issue', function(req, res) {
+			
+			updateIssue.execute(JSON.parse(req.body), new Response(res, logger));	
+			
 		});
 		
 		api.listen(process.env.PORT || 5001,function () {

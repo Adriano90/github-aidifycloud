@@ -27,11 +27,15 @@ let github = new GitHubApi({
 const Server = require('./webservice/server');
 const GetUserUseCase = require('./usecases/getuser');
 const UserRepository = require('./model/userrepository');
+const UpdateIssueUseCase = require('./usecases/updateissue');
+const IssueRepository = require('./model/issuerepository');
 const UserMapper = require('./model/usermapper');
 
 let userRepository = new UserRepository(new Logger(), github, redisClient, UserMapper);
+let issueRepository = new IssueRepository(new Logger(), github);
 let getUserUseCase = new GetUserUseCase(userRepository);
-let webservice = new Server(new Logger(), getUserUseCase);
+let updateIssueUseCase = new UpdateIssueUseCase(issueRepository);
+let webservice = new Server(new Logger(), getUserUseCase, updateIssueUseCase);
 
 // Cron bootstrap
 const Cron = require('./interfaces/cron.js');
