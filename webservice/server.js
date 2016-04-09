@@ -26,6 +26,9 @@ class Server {
 		});
 		
 		api.put('/issue', function(req, res) {
+			if (logger) {
+				logger.info('request PUT : /issue ? ' + JSON.stringify(req.body));
+			}
 			
 			updateIssue.execute(JSON.parse(req.body), new Response(res, logger));	
 			
